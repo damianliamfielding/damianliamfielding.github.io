@@ -1110,6 +1110,7 @@
       .nav-links { display: none; }
       .menu-btn  { display: flex; }
       .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .workshop-bottom { grid-template-columns: 1fr !important; }
       .about-img { aspect-ratio: 4/3; max-height: 280px; }
     }
 
@@ -1312,25 +1313,38 @@
       </div>
     </div>
 
-    <div class="reveal" style="margin-top:48px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:clamp(24px,4vw,44px);display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:220px;">
-        <p class="s-label" style="margin-bottom:8px;" data-de="Zuletzt durchgeführt" data-en="Most recent workshop">Zuletzt durchgeführt</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--white);letter-spacing:.04em;">Steps, Zetel</p>
-        <p style="font-size:.88rem;color:var(--muted);margin-top:6px;"
-           data-de="Workshops finden in wechselnden Locations statt – in Hildesheim und darüber hinaus."
-           data-en="Workshops take place at various locations – in Hildesheim and beyond.">
-          Workshops finden in wechselnden Locations statt – in Hildesheim und darüber hinaus.
-        </p>
-      </div>
-      <div>
-        <a href="#kontakt" class="btn btn-primary"
+    <div class="reveal workshop-bottom" style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);align-items:start;">
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:clamp(24px,4vw,44px);height:100%;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div>
+          <p class="s-label" style="margin-bottom:8px;" data-de="Zuletzt durchgeführt" data-en="Most recent workshop">Zuletzt durchgeführt</p>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);letter-spacing:.04em;">Steps, Zetel</p>
+          <p style="font-size:.88rem;color:var(--muted);margin-top:8px;line-height:1.7;"
+             data-de="Workshops finden in wechselnden Locations statt – in Hildesheim und darüber hinaus. Interesse? Schreib mir einfach."
+             data-en="Workshops take place at various locations – in Hildesheim and beyond. Interested? Just get in touch.">
+            Workshops finden in wechselnden Locations statt – in Hildesheim und darüber hinaus. Interesse? Schreib mir einfach.
+          </p>
+        </div>
+        <a href="#kontakt" class="btn btn-primary" style="align-self:flex-start;"
            data-de="Workshop anfragen" data-en="Enquire about a workshop">
           Workshop anfragen
         </a>
       </div>
+
+      <div style="border-radius:14px;overflow:hidden;min-height:400px;">
+        <blockquote class="instagram-media"
+          data-instgrm-captioned
+          data-instgrm-permalink="https://www.instagram.com/p/DULHGwqiEDV/"
+          data-instgrm-version="14"
+          style="background:#fff;border:0;border-radius:14px;margin:0;max-width:100%;width:100%;">
+        </blockquote>
+      </div>
     </div>
+
   </div>
 </section>
+
+<script async src="//www.instagram.com/embed.js"></script>
 
 <!-- ===== SHOWREEL ===== -->
 <section id="showreel">
