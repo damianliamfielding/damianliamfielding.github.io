@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://damianliamfielding.github.io/sitemap.xml
