@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(not exist *)",
+      "Bash(mkdir -p \"/mnt/c/Users/damia/OneDrive/Desktop/Website/.claude\")",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(\\(Get-Command python -ErrorAction SilentlyContinue\\).Source; \\(Get-Command python3 -ErrorAction SilentlyContinue\\).Source; \\(Get-Command node -ErrorAction SilentlyContinue\\).Source; \\(Get-Command npx -ErrorAction SilentlyContinue\\).Source)",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(python --version)",
+      "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"User\"\\); node --version; npm --version)",
+      "WebFetch(domain:fielding-videografie.carrd.co)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\damia\\\\OneDrive\\\\Desktop\\\\Website\\\\images\" | Select-Object Name, @{N=\"KB\";E={[math]::Round\\($_.Length/1KB,1\\)}})"
+    ]
+  }
+}

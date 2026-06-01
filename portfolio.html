@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio – Fielding Videografie. Sports, Portrait und Videografie aus Hildesheim.">
+  <title>Portfolio – Fielding Videografie</title>
+  <link rel="icon" type="image/png" href="images/Logo_DLF.png">
+  <link rel="apple-touch-icon" href="images/Logo_DLF.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:      #080810; --surface: #0e0e18; --card: #13131e;
+      --border:  #1c1c2e; --accent: #00B4D8; --accent-glow: rgba(0,180,216,.18);
+      --white:   #ffffff; --text: #dcdcef; --muted: #5a5a8a; --nav-h: 68px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; height: var(--nav-h); z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px,5vw,80px);
+      background: rgba(8,8,16,.93); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .back-link { font-size: .8rem; font-weight: 500; color: var(--muted); text-decoration: none; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+    .back-link:hover { color: var(--accent); }
+
+    /* HERO */
+    .portfolio-hero {
+      padding: clamp(60px,10vw,120px) clamp(20px,5vw,80px) clamp(40px,6vw,80px);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .hero-label { font-size: .72rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem,7vw,5.5rem); letter-spacing: .04em; color: var(--white); line-height: .95; margin-bottom: 20px; }
+    .hero-sub { font-size: .95rem; font-weight: 300; color: var(--muted); max-width: 480px; line-height: 1.75; }
+
+    /* CATEGORY TABS */
+    .tabs {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 0 clamp(20px,5vw,80px); margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--muted); font-family: 'Inter', sans-serif; font-size: .82rem;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 4px; margin-bottom: -1px; cursor: pointer;
+      transition: color .2s, border-color .2s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent); border-color: var(--accent); }
+
+    /* SECTIONS */
+    .portfolio-section {
+      display: none; padding: clamp(40px,6vw,80px) clamp(20px,5vw,80px);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .portfolio-section.active { display: block; }
+
+    .section-intro { margin-bottom: 40px; }
+    .section-intro h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem,4vw,3rem); letter-spacing: .04em; color: var(--white); margin-bottom: 8px; }
+    .section-intro p { font-size: .9rem; color: var(--muted); }
+
+    /* MASONRY GRID */
+    .masonry {
+      columns: 3; column-gap: 14px;
+    }
+    .m-item {
+      break-inside: avoid; margin-bottom: 14px;
+      border-radius: 8px; overflow: hidden;
+      position: relative; cursor: zoom-in;
+    }
+    .m-item img {
+      width: 100%; display: block;
+      transition: transform .45s ease, filter .35s;
+      filter: brightness(.88) saturate(.8);
+    }
+    .m-item:hover img { transform: scale(1.03); filter: brightness(1) saturate(1); }
+    .m-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,180,216,.15) 0%, transparent 50%);
+      opacity: 0; transition: opacity .35s;
+    }
+    .m-item:hover::after { opacity: 1; }
+
+    /* VIDEO placeholder */
+    .video-placeholder-box {
+      background: var(--card); border: 1px dashed var(--border);
+      border-radius: 12px; padding: 80px 40px; text-align: center; color: var(--muted);
+    }
+    .video-placeholder-box svg { opacity: .15; margin-bottom: 20px; display: block; margin-inline: auto; }
+    .video-placeholder-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .04em; color: var(--text); margin-bottom: 12px; }
+    .video-placeholder-box p { font-size: .88rem; line-height: 1.7; max-width: 380px; margin: 0 auto; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.95); z-index: 500;
+      align-items: center; justify-content: center;
+      padding: 20px; cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 6px; box-shadow: 0 0 80px rgba(0,180,216,.12); }
+    .lb-close { position: absolute; top: 20px; right: 24px; font-size: 2.2rem; color: var(--white); cursor: pointer; opacity: .6; transition: opacity .2s; line-height: 1; }
+    .lb-close:hover { opacity: 1; }
+    .lb-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: 2rem; color: var(--white); cursor: pointer;
+      opacity: .5; transition: opacity .2s; padding: 16px; user-select: none;
+    }
+    .lb-arrow:hover { opacity: 1; }
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
+    .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: .78rem; color: var(--muted); letter-spacing: .1em; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); background: var(--surface);
+      padding: 32px clamp(20px,5vw,80px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .f-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .08em; color: var(--white); text-decoration: none; }
+    .f-logo span { color: var(--accent); }
+    .f-links { display: flex; gap: 20px; list-style: none; }
+    .f-links a { font-size: .78rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .f-links a:hover { color: var(--accent); }
+    .f-copy { font-size: .78rem; color: var(--muted); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 800px) { .masonry { columns: 2; } }
+    @media (max-width: 500px) { .masonry { columns: 1; } footer { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">FIELDING<span>.</span></a>
+  <a href="index.html" class="back-link">← Zurück</a>
+</nav>
+
+<div class="portfolio-hero">
+  <p class="hero-label">Meine Arbeit</p>
+  <h1 class="hero-title">PORT<br><span style="color:var(--accent)">FOLIO</span></h1>
+  <p class="hero-sub">Sports, Portrait und Videografie. Eine Auswahl meiner Arbeiten aus Hildesheim und Umgebung.</p>
+</div>
+
+<!-- TABS -->
+<div style="border-bottom:1px solid var(--border); padding: 0 clamp(20px,5vw,80px);">
+  <div style="max-width:1200px; margin:0 auto; display:flex; gap:8px;">
+    <button class="tab-btn active" onclick="showTab('sport', this)">Sports</button>
+    <button class="tab-btn" onclick="showTab('portrait', this)">Portrait</button>
+    <button class="tab-btn" onclick="showTab('video', this)">Videografie</button>
+  </div>
+</div>
+
+<!-- SPORT -->
+<div class="portfolio-section active" id="tab-sport">
+  <div class="section-intro reveal">
+    <h2>SPORTS FOTOGRAFIE</h2>
+    <p>Fußball, Bewegung, Emotion. Eingefangen im richtigen Moment.</p>
+  </div>
+  <div class="masonry reveal">
+    <div class="m-item" onclick="openLb('images/sport/sport_01.jpg', 0, 'sport')"><img src="images/sport/sport_01.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_02.jpg', 1, 'sport')"><img src="images/sport/sport_02.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_03.jpg', 2, 'sport')"><img src="images/sport/sport_03.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_04.jpg', 3, 'sport')"><img src="images/sport/sport_04.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_05.jpg', 4, 'sport')"><img src="images/sport/sport_05.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_06.jpg', 5, 'sport')"><img src="images/sport/sport_06.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_07.jpg', 6, 'sport')"><img src="images/sport/sport_07.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_08.jpg', 7, 'sport')"><img src="images/sport/sport_08.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_09.jpg', 8, 'sport')"><img src="images/sport/sport_09.jpg" alt="Sports Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/sport/sport_10.jpg', 9, 'sport')"><img src="images/sport/sport_10.jpg" alt="Sports Fotografie" loading="lazy"></div>
+  </div>
+</div>
+
+<!-- PORTRAIT -->
+<div class="portfolio-section" id="tab-portrait">
+  <div class="section-intro reveal">
+    <h2>PORTRAIT FOTOGRAFIE</h2>
+    <p>Menschen, Stimmungen, Momente. Authentische Portraits mit Blick fürs Wesentliche.</p>
+  </div>
+  <div class="masonry reveal">
+    <div class="m-item" onclick="openLb('images/portrait/portrait_01.jpg', 0, 'portrait')"><img src="images/portrait/portrait_01.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_02.jpg', 1, 'portrait')"><img src="images/portrait/portrait_02.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_03.jpg', 2, 'portrait')"><img src="images/portrait/portrait_03.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_04.jpg', 3, 'portrait')"><img src="images/portrait/portrait_04.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_05.jpg', 4, 'portrait')"><img src="images/portrait/portrait_05.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_06.jpg', 5, 'portrait')"><img src="images/portrait/portrait_06.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_07.jpg', 6, 'portrait')"><img src="images/portrait/portrait_07.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_08.jpg', 7, 'portrait')"><img src="images/portrait/portrait_08.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+    <div class="m-item" onclick="openLb('images/portrait/portrait_09.jpg', 8, 'portrait')"><img src="images/portrait/portrait_09.jpg" alt="Portrait Fotografie" loading="lazy"></div>
+  </div>
+</div>
+
+<!-- VIDEOGRAFIE -->
+<div class="portfolio-section" id="tab-video">
+  <div class="section-intro reveal">
+    <h2>VIDEOGRAFIE</h2>
+    <p>Imagefilme, Eventdokumentation und kreative Videoprojekte.</p>
+  </div>
+  <div class="video-placeholder-box reveal">
+    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+      <polygon points="5,3 19,12 5,21"/>
+    </svg>
+    <h3>Demnächst verfügbar</h3>
+    <p>Videografie-Projekte werden hier in Kürze ergänzt. Schau bald wieder vorbei oder kontaktiere mich direkt für Referenzen.</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="handleLbClick(event)">
+  <span class="lb-close" onclick="closeLb()">×</span>
+  <span class="lb-arrow lb-prev" onclick="navLb(-1); event.stopPropagation();">&#8249;</span>
+  <img id="lbImg" src="" alt="">
+  <span class="lb-arrow lb-next" onclick="navLb(1); event.stopPropagation();">&#8250;</span>
+  <span class="lb-counter" id="lbCounter"></span>
+</div>
+
+<footer>
+  <a href="index.html" class="f-logo">FIELDING<span>.</span></a>
+  <ul class="f-links">
+    <li><a href="impressum.html">Impressum</a></li>
+    <li><a href="datenschutz.html">Datenschutz</a></li>
+  </ul>
+  <p class="f-copy">© <span id="yr"></span> Damian Liam Fielding</p>
+</footer>
+
+<script>
+  // TABS
+  function showTab(id, btn) {
+    document.querySelectorAll('.portfolio-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    // re-trigger reveals for newly shown section
+    document.querySelectorAll('#tab-' + id + ' .reveal').forEach(el => {
+      el.classList.remove('on');
+      setTimeout(() => el.classList.add('on'), 60);
+    });
+  }
+
+  // LIGHTBOX
+  const galleries = {
+    sport: Array.from({length:10}, (_,i) => `images/sport/sport_${String(i+1).padStart(2,'0')}.jpg`),
+    portrait: Array.from({length:9}, (_,i) => `images/portrait/portrait_${String(i+1).padStart(2,'0')}.jpg`),
+  };
+  let currentGallery = 'sport';
+  let currentIdx = 0;
+
+  function openLb(src, idx, gallery) {
+    currentGallery = gallery;
+    currentIdx = idx;
+    showLbImage();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLbImage() {
+    const imgs = galleries[currentGallery];
+    document.getElementById('lbImg').src = imgs[currentIdx];
+    document.getElementById('lbCounter').textContent = `${currentIdx + 1} / ${imgs.length}`;
+  }
+
+  function navLb(dir) {
+    const imgs = galleries[currentGallery];
+    currentIdx = (currentIdx + dir + imgs.length) % imgs.length;
+    showLbImage();
+  }
+
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleLbClick(e) {
+    if (e.target === document.getElementById('lightbox')) closeLb();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') navLb(-1);
+    if (e.key === 'ArrowRight') navLb(1);
+  });
+
+  // REVEAL
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('#tab-sport .reveal').forEach(el => io.observe(el));
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

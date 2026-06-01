@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="de" data-lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fielding Videografie. Professionelle Videografie und Fotografie aus Hildesheim. Kreativer und dokumentarischer Ansatz.">
+  <title>Fielding Videografie</title>
+
+  <link rel="icon" type="image/png" href="images/Logo_DLF.png">
+  <link rel="apple-touch-icon" href="images/Logo_DLF.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #080810;
+      --surface:     #0e0e18;
+      --card:        #13131e;
+      --border:      #1c1c2e;
+      --accent:      #00B4D8;
+      --accent-glow: rgba(0,180,216,0.18);
+      --white:       #ffffff;
+      --text:        #dcdcef;
+      --muted:       #5a5a8a;
+      --nav-h:       72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      inset-inline: 0;
+      top: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 80px);
+      transition: background .3s, backdrop-filter .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(8,8,16,.93);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: .08em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color .2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      cursor: pointer;
+      padding: 5px 11px;
+      border-radius: 100px;
+      transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* Hamburger */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* Mobile drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      inset-inline: 0;
+      background: rgba(8,8,16,.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 99;
+    }
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color .2s;
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { color: var(--accent); }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* YouTube background trick */
+    .hero-video iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 177.8vh;
+      min-width: 100%;
+      min-height: 56.25vw;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* Photo background */
+    .hero-video-fallback {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/image01.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.55) saturate(0.8);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8,8,16,1)   0%,
+        rgba(8,8,16,.72) 35%,
+        rgba(8,8,16,.25) 65%,
+        rgba(8,8,16,.12) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(32px, 6vw, 100px);
+      padding-bottom: clamp(64px, 10vw, 120px);
+      max-width: 860px;
+    }
+
+    .hero-eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeUp .8s ease .3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.6rem, 10vw, 7.5rem);
+      line-height: .92;
+      letter-spacing: .03em;
+      color: var(--white);
+      margin-bottom: 26px;
+      opacity: 0;
+      animation: fadeUp .8s ease .5s forwards;
+    }
+    .hero-title .ac { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(.9rem, 1.8vw, 1.1rem);
+      font-weight: 300;
+      color: var(--text);
+      max-width: 500px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp .8s ease .7s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s ease .9s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 13px 30px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,180,216,.28);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      right: clamp(20px, 5vw, 80px);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.6s forwards;
+    }
+    .scroll-hint span {
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 54px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: pulse 2.2s ease infinite;
+    }
+
+    /* ===== SHARED ===== */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section { padding: clamp(72px, 12vw, 136px) clamp(20px, 5vw, 80px); }
+
+    .s-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .s-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      letter-spacing: .04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .s-sub {
+      font-size: .95rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    .s-head { margin-bottom: clamp(44px, 8vw, 80px); }
+
+    /* ===== LEISTUNGEN ===== */
+    #leistungen { background: var(--surface); }
+
+    .grid-services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s ease, border-color .35s, box-shadow .35s;
+      text-align: center;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0,180,216,.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), 0 0 40px var(--accent-glow);
+    }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-icon { font-size: 1.9rem; margin-bottom: 18px; display: block; }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: .05em;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* Cards with background image */
+    .card-bg {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .card-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,16,.95) 0%, rgba(8,8,16,.8) 55%, rgba(8,8,16,.6) 100%);
+      border-radius: 12px;
+      z-index: 0;
+      transition: opacity .35s ease;
+    }
+    .card-bg:hover::after {
+      opacity: .85;
+    }
+    .card-bg > * { position: relative; z-index: 1; }
+
+    /* ===== SHOWREEL ===== */
+    #showreel { background: var(--bg); }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 80px var(--accent-glow);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Placeholder when no video */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: var(--card);
+    }
+
+    .video-placeholder svg { opacity: .2; }
+
+    .video-placeholder p {
+      font-size: .85rem;
+      color: var(--muted);
+      text-align: center;
+      max-width: 320px;
+      line-height: 1.6;
+    }
+
+    .text-center { text-align: center; }
+    .mt-8 { margin-top: 32px; }
+
+    /* ===== SPORT GALERIE ===== */
+    #galerie { background: var(--surface); }
+
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 420px;
+      gap: 10px;
+    }
+
+    .gm-item {
+      overflow: hidden;
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gm-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+      filter: brightness(.88) saturate(.85);
+    }
+
+    .gm-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1);
+    }
+
+    .gm-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,180,216,.16) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .35s;
+    }
+
+    .gm-item:hover::after { opacity: 1; }
+
+    .gm-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.92);
+      background: rgba(0,0,0,.52);
+      backdrop-filter: blur(8px);
+      padding: 3px 9px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .gm-s1 { grid-column: 1; grid-row: 1; }
+    .gm-p1 { grid-column: 2; grid-row: 1; }
+    .gm-p2 { grid-column: 3; grid-row: 1; }
+
+    .gm-s1 img { object-position: center; }
+    .gm-p1 img, .gm-p2 img { object-position: center top; }
+
+    .gallery-grid {
+      columns: 3;
+      column-gap: 14px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform .45s ease;
+      filter: brightness(.9) saturate(.85);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,180,216,.18) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .35s;
+    }
+
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.94);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 0 80px rgba(0,180,216,.15);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 2rem;
+      color: var(--white);
+      cursor: pointer;
+      line-height: 1;
+      opacity: .7;
+      transition: opacity .2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    .gallery-upload-hint {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .gallery-upload-hint p { font-size: .85rem; line-height: 1.7; }
+    .gallery-upload-hint code {
+      background: var(--card);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: .8rem;
+      color: var(--accent);
+    }
+
+    @media (max-width: 800px) {
+      .gallery-grid { columns: 2; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 1; }
+      .gallery-mosaic {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 150px 150px 150px;
+      }
+      .gm-s1 { grid-column: 1 / 3; grid-row: 1; }
+      .gm-p1 { grid-column: 1; grid-row: 2; }
+      .gm-p2 { grid-column: 2; grid-row: 2; }
+      .gm-s2 { grid-column: 1 / 3; grid-row: 3; }
+    }
+
+    /* ===== ÜBER MICH ===== */
+    #ueber-mich { background: var(--bg); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: clamp(36px, 8vw, 96px);
+      align-items: center;
+    }
+
+    .about-img {
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .img-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      gap: 12px;
+    }
+    .img-placeholder svg { opacity: .18; }
+    .img-placeholder p { font-size: .75rem; opacity: .5; }
+
+    /* Real photo (add class .has-photo to .about-img and put <img> inside) */
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(0,180,216,.25);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .about-text {
+      font-size: .95rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .about-text strong { color: var(--white); font-weight: 600; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .stat {
+      padding: 18px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .stat-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      color: var(--accent);
+      letter-spacing: .04em;
+    }
+
+    .stat-l {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ===== KONTAKT ===== */
+    #kontakt { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: clamp(36px, 8vw, 96px);
+      align-items: start;
+    }
+
+    .c-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .c-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .c-label {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .c-val {
+      font-size: .95rem;
+      color: var(--text);
+    }
+    .c-val a { color: var(--text); text-decoration: none; transition: color .2s; }
+    .c-val a:hover { color: var(--accent); }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 32px;
+    }
+
+    .soc {
+      width: 42px;
+      height: 42px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all .25s;
+    }
+    .soc:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Form */
+    .form-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: clamp(24px, 4vw, 44px);
+    }
+
+    .fg { margin-bottom: 18px; }
+
+    .fl {
+      display: block;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .fi, .ft, .fs {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+      appearance: none;
+    }
+
+    .fi:focus, .ft:focus, .fs:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .ft { resize: vertical; min-height: 130px; }
+
+    .fs option { background: var(--card); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--accent);
+    }
+
+    .form-success svg { margin-bottom: 12px; }
+    .form-success p { color: var(--text); font-size: .9rem; margin-top: 8px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 36px clamp(20px, 5vw, 80px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .f-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: .08em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .f-logo span { color: var(--accent); }
+
+    .f-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+    .f-links a {
+      font-size: .78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .f-links a:hover { color: var(--accent); }
+
+    .f-copy { font-size: .78rem; color: var(--muted); }
+
+    /* ===== COOKIE BANNER ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100vw - 32px));
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      transition: opacity .3s, transform .3s;
+    }
+
+    .cookie-banner.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(20px);
+    }
+
+    .cookie-text {
+      flex: 1;
+      min-width: 200px;
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cookie-text strong { color: var(--text); }
+    .cookie-text a { color: var(--accent); text-decoration: none; }
+
+    .cookie-btns {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cookie-accept {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background .2s;
+    }
+    .cookie-accept:hover { background: var(--white); }
+
+    .cookie-decline {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 20px;
+      font-size: .8rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all .2s;
+    }
+    .cookie-decline:hover { border-color: var(--muted); color: var(--text); }
+
+    /* YouTube consent placeholder */
+    .yt-consent {
+      position: absolute;
+      inset: 0;
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .yt-consent svg { opacity: .25; }
+
+    .yt-consent p {
+      font-size: .85rem;
+      color: var(--muted);
+      max-width: 340px;
+      line-height: 1.65;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .3; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+      .menu-btn  { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .about-img { aspect-ratio: 4/3; max-height: 280px; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-cta  { flex-direction: column; }
+      .stats     { grid-template-columns: 1fr; }
+      .form-row  { grid-template-columns: 1fr; }
+      footer     { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">FIELDING<span>.</span></a>
+
+  <ul class="nav-links">
+    <li><a href="#leistungen"  data-de="Leistungen"  data-en="Services">Leistungen</a></li>
+    <li><a href="#showreel"    data-de="Showreel"     data-en="Showreel">Showreel</a></li>
+    <li><a href="portfolio.html" data-de="Portfolio"  data-en="Portfolio">Portfolio</a></li>
+    <li><a href="#ueber-mich"  data-de="Über mich"    data-en="About">Über mich</a></li>
+    <li><a href="#kontakt"     data-de="Kontakt"      data-en="Contact">Kontakt</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <button class="lang-btn"        onclick="setLang('en')">EN</button>
+    </div>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#leistungen"    onclick="closeMenu()" data-de="Leistungen"  data-en="Services">Leistungen</a>
+  <a href="#showreel"     onclick="closeMenu()" data-de="Showreel"    data-en="Showreel">Showreel</a>
+  <a href="portfolio.html" onclick="closeMenu()" data-de="Portfolio"  data-en="Portfolio">Portfolio</a>
+  <a href="#ueber-mich"   onclick="closeMenu()" data-de="Über mich"   data-en="About">Über mich</a>
+  <a href="#kontakt"      onclick="closeMenu()" data-de="Kontakt"     data-en="Contact">Kontakt</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-video">
+    <!--
+      SHOWREEL ALS HINTERGRUND:
+      Ersetze VIDEO_ID mit deiner YouTube Video-ID (die Zeichenfolge nach ?v= in der URL).
+      Beispiel: https://youtu.be/dQw4w9WgXcQ → VIDEO_ID = dQw4w9WgXcQ
+    -->
+    <div class="hero-video-fallback"></div>
+    <!--
+    <iframe
+      src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="Showreel Hintergrund"
+    ></iframe>
+    -->
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow"
+       data-de="Videografie · Fotografie · Hildesheim"
+       data-en="Videography · Photography · Hildesheim">
+      Videografie · Fotografie · Hildesheim
+    </p>
+    <h1 class="hero-title">
+      FIELDING<br><span class="ac">VIDEOGRAFIE</span>
+    </h1>
+    <p class="hero-sub"
+       data-de="Kreativer und dokumentarischer Ansatz. Von der Idee über den Dreh bis zur finalen Postproduktion."
+       data-en="A creative and documentary approach. From concept through shooting to final post-production.">
+      Kreativer und dokumentarischer Ansatz. Von der Idee über den Dreh bis zur finalen Postproduktion.
+    </p>
+    <div class="hero-cta">
+      <a href="#kontakt"   class="btn btn-primary" data-de="Projekt anfragen"  data-en="Start a project">Projekt anfragen</a>
+      <a href="#showreel"  class="btn btn-ghost"   data-de="Showreel ansehen"  data-en="Watch showreel">Showreel ansehen</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ===== LEISTUNGEN ===== -->
+<section id="leistungen">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="s-label" data-de="Was ich anbiete" data-en="What I offer">Was ich anbiete</p>
+      <h2 class="s-title" data-de="LEISTUNGEN" data-en="SERVICES">LEISTUNGEN</h2>
+      <p class="s-sub"
+         data-de="Von der ersten Idee bis zum fertigen Produkt. Ich begleite dein Projekt durch jeden Schritt."
+         data-en="From the first idea to the final product. I guide your project through every step.">
+        Von der ersten Idee bis zum fertigen Produkt. Ich begleite dein Projekt durch jeden Schritt.
+      </p>
+    </div>
+
+    <div class="grid-services">
+      <div class="card card-bg reveal" style="background-image:url('images/Zigarre.jpg')">
+        <span class="card-icon">🎬</span>
+        <h3 class="card-name" data-de="VIDEOGRAFIE" data-en="VIDEOGRAPHY">VIDEOGRAFIE</h3>
+        <p class="card-desc"
+           data-de="Konzeption und Umsetzung für verschiedene Einsatzbereiche. Vom Imagefilm bis zur Eventdokumentation, vom ersten Briefing bis zum fertigen Schnitt."
+           data-en="Conception and production for various applications. From corporate films to event coverage, from the first briefing to the final cut.">
+          Konzeption und Umsetzung für verschiedene Einsatzbereiche. Vom Imagefilm bis zur Eventdokumentation, vom ersten Briefing bis zum fertigen Schnitt.
+        </p>
+      </div>
+
+      <div class="card card-bg reveal" style="background-image:url('images/Doppellung.jpg')">
+        <span class="card-icon">📷</span>
+        <h3 class="card-name" data-de="FOTOGRAFIE" data-en="PHOTOGRAPHY">FOTOGRAFIE</h3>
+        <p class="card-desc"
+           data-de="Portraits, dokumentarische Aufnahmen sowie Projekt- und Eventfotografie. Ein Blick für den entscheidenden Moment und die richtige Stimmung."
+           data-en="Portraits, documentary shots, and project or event photography. An eye for the decisive moment and the right mood.">
+          Portraits, dokumentarische Aufnahmen sowie Projekt- und Eventfotografie. Ein Blick für den entscheidenden Moment und die richtige Stimmung.
+        </p>
+      </div>
+
+      <a href="#galerie" class="card card-bg reveal" style="text-decoration:none;display:block;background-image:url('images/sport/sport_06.jpg')">
+        <span class="card-icon">⚡</span>
+        <h3 class="card-name" data-de="SPORTS FOTOGRAFIE" data-en="SPORTS PHOTOGRAPHY">SPORTS FOTOGRAFIE</h3>
+        <p class="card-desc"
+           data-de="Bewegungen, Emotionen und entscheidende Momente. Eingefangen mit technischer Präzision und dem Gespür für den richtigen Augenblick im Sport."
+           data-en="Motion, emotion, and decisive moments. Captured with technical precision and a feel for the perfect sporting instant.">
+          Bewegungen, Emotionen und entscheidende Momente. Eingefangen mit technischer Präzision und dem Gespür für den richtigen Augenblick im Sport.
+        </p>
+        <span style="display:inline-block;margin-top:18px;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);"
+              data-de="Galerie ansehen →" data-en="View gallery →">Galerie ansehen →</span>
+      </a>
+
+      <div class="card card-bg reveal" style="background-image:url('images/Schnittbild.jpg')">
+        <span class="card-icon">🎙️</span>
+        <h3 class="card-name" data-de="PODCAST PRODUKTION" data-en="PODCAST PRODUCTION">PODCAST PRODUKTION</h3>
+        <p class="card-desc"
+           data-de="Schnitt und Audioproduktion für Podcast-Formate. Professioneller Sound, klare Struktur und angenehmer Hörfluss für deinen Content."
+           data-en="Editing and audio production for podcast formats. Professional sound, clear structure and smooth listening flow for your content.">
+          Schnitt und Audioproduktion für Podcast-Formate. Professioneller Sound, klare Struktur und angenehmer Hörfluss für deinen Content.
+        </p>
+        <a href="https://open.spotify.com/show/1RbaivlprehAEQOs0MzQ08" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;transition:opacity .2s;"
+           onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'"
+           data-de="EduVisionaries anhören →" data-en="Listen to EduVisionaries →">
+          EduVisionaries anhören →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SHOWREEL ===== -->
+<section id="showreel">
+  <div class="wrap">
+    <div class="s-head reveal text-center">
+      <p class="s-label" data-de="Meine Arbeit" data-en="My work">Meine Arbeit</p>
+      <h2 class="s-title" data-de="SHOWREEL" data-en="SHOWREEL">SHOWREEL</h2>
+    </div>
+
+    <div class="video-wrap reveal">
+      <!--
+        SHOWREEL VIDEO:
+        1. Öffne dein Showreel auf YouTube
+        2. Kopiere die Video-ID (z.B. bei https://youtu.be/dQw4w9WgXcQ ist es: dQw4w9WgXcQ)
+        3. Ersetze VIDEO_ID in der src-URL unten
+        4. Lösche den <div class="video-placeholder">...</div> Block
+      -->
+      <div class="yt-consent" id="ytConsent">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+          <polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="currentColor" stroke="none"/>
+        </svg>
+        <p>Um das Showreel zu laden, müssen YouTube-Cookies akzeptiert werden. <button onclick="acceptCookies()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:inherit;font-family:inherit;text-decoration:underline;">Cookies akzeptieren</button></p>
+      </div>
+      <iframe
+        id="showreelIframe"
+        src=""
+        data-src="https://www.youtube.com/embed/2yeUtEYPE1k?rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        title="Fielding Videografie – Showreel"
+        style="display:none;"
+      ></iframe>
+    </div>
+
+    <div class="text-center mt-8 reveal">
+      <a href="https://youtube.com/@damianliamfielding4899" target="_blank" rel="noopener"
+         class="btn btn-ghost"
+         data-de="Mehr auf YouTube →" data-en="More on YouTube →">
+        Mehr auf YouTube →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPORTGALERIE ===== -->
+<section id="galerie">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="s-label" data-de="Fotografie" data-en="Photography">Fotografie</p>
+      <h2 class="s-title" data-de="GALERIE" data-en="GALLERY">GALERIE</h2>
+      <p class="s-sub"
+         data-de="Sports, Portrait, Momente. Ein Blick in meine Arbeit."
+         data-en="Sports, portrait, moments. A look at my work.">
+        Sports, Portrait, Momente. Ein Blick in meine Arbeit.
+      </p>
+    </div>
+
+    <div class="gallery-mosaic reveal">
+      <div class="gm-item gm-s1">
+        <img src="images/sport/sport_05.jpg" alt="Sports Fotografie" loading="lazy">
+        <span class="gm-badge" data-de="Sports" data-en="Sports">Sports</span>
+      </div>
+      <div class="gm-item gm-p1">
+        <img src="images/portrait/portrait_04.jpg" alt="Portrait Fotografie" loading="lazy">
+        <span class="gm-badge" data-de="Portrait" data-en="Portrait">Portrait</span>
+      </div>
+      <div class="gm-item gm-p2">
+        <img src="images/portrait/portrait_02.jpg" alt="Portrait Fotografie" loading="lazy">
+      </div>
+    </div>
+
+    <div class="text-center mt-8 reveal">
+      <a href="portfolio.html" class="btn btn-primary"
+         data-de="Gesamtes Portfolio ansehen" data-en="View full portfolio">
+        Gesamtes Portfolio ansehen
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- ===== ÜBER MICH ===== -->
+<section id="ueber-mich">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div class="about-img reveal">
+        <img src="images/image02.jpg" alt="Damian Liam Fielding">
+      </div>
+
+      <div class="about-content reveal">
+        <p class="s-label" data-de="Wer ich bin" data-en="Who I am">Wer ich bin</p>
+        <h2 class="s-title" data-de="ÜBER MICH" data-en="ABOUT ME">ÜBER MICH</h2>
+
+        <div class="about-badge">
+          <span>📍</span>
+          <span data-de="Freelancer seit Oktober 2025 · Hildesheim"
+                data-en="Freelancer since October 2025 · Hildesheim">
+            Freelancer seit Oktober 2025 · Hildesheim
+          </span>
+        </div>
+
+        <p class="about-text"
+           data-de="Ich bin Damian. Ich habe <strong>Szenische Künste</strong> an der Universität Hildesheim studiert und arbeite heute hauptberuflich als <strong>Marketing Manager</strong>. Wenn ich nicht gerade im Büro bin, halte ich Momente fest, die es wert sind, erinnert zu werden."
+           data-en="I'm Damian. I studied <strong>Scenic Arts</strong> at the University of Hildesheim and now work full-time as a <strong>Marketing Manager</strong>. When I'm not at the office, I capture moments that are worth remembering.">
+          Ich habe <strong>Szenische Künste</strong> an der Universität Hildesheim studiert und arbeite heute hauptberuflich als <strong>Marketing Manager</strong>. Wenn ich nicht gerade im Büro bin, halte ich Momente fest, die es wert sind, erinnert zu werden.
+        </p>
+
+        <p class="about-text"
+           data-de="Videografie und Fotografie sind meine Art, die Welt zu sehen. Egal ob auf dem Fußballplatz, beim Portrait oder hinter der Kamera für ein Filmprojekt, ich bringe immer meine volle Aufmerksamkeit mit. Von der Idee bis zum fertigen Schnitt."
+           data-en="Videography and photography are my way of seeing the world. Whether on the football pitch, during a portrait shoot, or behind the camera for a film project, I bring my full attention every time. From idea to final cut.">
+          Videografie und Fotografie sind meine Art, die Welt zu sehen. Egal ob auf dem Fußballplatz, beim Portrait oder hinter der Kamera für ein Filmprojekt, ich bringe immer meine volle Aufmerksamkeit mit. Von der Idee bis zum fertigen Schnitt.
+        </p>
+
+        <p class="about-text"
+           data-de="Ich arbeite von Hildesheim aus, aber gerne auch weiter weg. Klare Absprachen und zuverlässige Deadlines sind für mich kein Marketing, sondern Standard. Ehrenamtlich unterstütze ich außerdem den <strong>EduVisionaries Podcast</strong> mit Schnitt und Audioproduktion."
+           data-en="I'm based in Hildesheim but happy to travel further. Clear communication and reliable deadlines aren't just words for me, they're how I work. I also volunteer for the <strong>EduVisionaries Podcast</strong>, handling editing and audio production.">
+          Ich arbeite von Hildesheim aus, aber gerne auch weiter weg. Klare Absprachen und zuverlässige Deadlines sind für mich kein Marketing, sondern Standard. Ehrenamtlich unterstütze ich außerdem den <strong>EduVisionaries Podcast</strong> mit Schnitt und Audioproduktion.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-n">4+</div>
+            <div class="stat-l" data-de="Leistungen" data-en="Services">Leistungen</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">100%</div>
+            <div class="stat-l" data-de="Leidenschaft" data-en="Passion">Leidenschaft</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">0€</div>
+            <div class="stat-l" data-de="USt. (Kleinunternehmer)" data-en="VAT (small business)">USt. (Kleinunternehmer)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">24h</div>
+            <div class="stat-l" data-de="Antwortzeit" data-en="Response time">Antwortzeit</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAKT ===== -->
+<section id="kontakt">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="s-label" data-de="Lass uns reden" data-en="Let's talk">Lass uns reden</p>
+      <h2 class="s-title" data-de="KONTAKT" data-en="CONTACT">KONTAKT</h2>
+      <p class="s-sub"
+         data-de="Du hast ein Projekt? Schreib mir. Ich freue mich auf deine Anfrage."
+         data-en="Got a project? Write to me. I look forward to hearing from you.">
+        Du hast ein Projekt? Schreib mir. Ich freue mich auf deine Anfrage.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Info -->
+      <div class="reveal">
+        <div class="c-item">
+          <div class="c-icon">✉️</div>
+          <div>
+            <div class="c-label" data-de="E-Mail" data-en="Email">E-Mail</div>
+            <div class="c-val"><a href="mailto:damian.liam.fielding@gmail.com">damian.liam.fielding@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label" data-de="Standort" data-en="Location">Standort</div>
+            <div class="c-val">Hildesheim, Deutschland</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🕐</div>
+          <div>
+            <div class="c-label" data-de="Antwortzeit" data-en="Response time">Antwortzeit</div>
+            <div class="c-val"
+                 data-de="In der Regel innerhalb 24 Stunden"
+                 data-en="Usually within 24 hours">
+              In der Regel innerhalb 24 Stunden
+            </div>
+          </div>
+        </div>
+
+        <div class="socials">
+          <a href="https://www.instagram.com/liam_fielding/" target="_blank" rel="noopener" class="soc" title="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/damian-liam-fielding-89564b225/" target="_blank" rel="noopener" class="soc" title="LinkedIn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7H10V9h4v2a6 6 0 0 1 6-3z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="https://youtube.com/@damianliamfielding4899" target="_blank" rel="noopener" class="soc" title="YouTube">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+              <polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="reveal">
+        <!--
+          KONTAKTFORMULAR AKTIVIEREN:
+          1. Gehe zu formspree.io → kostenloses Konto erstellen
+          2. Neues Formular anlegen → du bekommst eine Form-ID
+          3. Ersetze YOUR_FORM_ID in der action-URL unten
+        -->
+        <form class="form-box" id="contactForm"
+              action="https://formspree.io/f/mqejqvry"
+              method="POST">
+
+          <div class="form-row">
+            <div class="fg">
+              <label class="fl" data-de="Name" data-en="Name">Name</label>
+              <input class="fi" type="text" name="name" required
+                     placeholder="Max Mustermann">
+            </div>
+            <div class="fg">
+              <label class="fl" data-de="E-Mail" data-en="Email">E-Mail</label>
+              <input class="fi" type="email" name="email" required
+                     placeholder="deine@email.de">
+            </div>
+          </div>
+
+          <div class="fg">
+            <label class="fl" data-de="Gewünschte Leistung" data-en="Service needed">Gewünschte Leistung</label>
+            <select class="fs" name="service">
+              <option value="" data-de="Bitte wählen …" data-en="Please select …">Bitte wählen …</option>
+              <option value="Videografie"        data-de="Videografie"        data-en="Videography">Videografie</option>
+              <option value="Fotografie"         data-de="Fotografie"         data-en="Photography">Fotografie</option>
+              <option value="Sports Fotografie"  data-de="Sports Fotografie"  data-en="Sports Photography">Sports Fotografie</option>
+              <option value="Podcast Produktion" data-de="Podcast Produktion" data-en="Podcast Production">Podcast Produktion</option>
+              <option value="Sonstiges"          data-de="Sonstiges"          data-en="Other">Sonstiges</option>
+            </select>
+          </div>
+
+          <div class="fg">
+            <label class="fl" data-de="Deine Nachricht" data-en="Your message">Deine Nachricht</label>
+            <textarea class="ft" name="message" required
+                      data-placeholder-de="Erzähl mir von deinem Projekt …"
+                      data-placeholder-en="Tell me about your project …"
+                      placeholder="Erzähl mir von deinem Projekt …"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn"
+                  style="width:100%;justify-content:center;"
+                  data-de="Nachricht senden" data-en="Send message">
+            Nachricht senden
+          </button>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <h3 style="font-family:'Bebas Neue';font-size:1.6rem;letter-spacing:.04em;"
+              data-de="Nachricht gesendet!" data-en="Message sent!">Nachricht gesendet!</h3>
+          <p data-de="Ich melde mich in der Regel innerhalb von 24 Stunden."
+             data-en="I'll usually get back to you within 24 hours.">
+            Ich melde mich in der Regel innerhalb von 24 Stunden.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COOKIE BANNER ===== -->
+<div class="cookie-banner" id="cookieBanner">
+  <p class="cookie-text">
+    <strong>Cookies & Datenschutz</strong><br>
+    Diese Website verwendet YouTube-Embeds (Google Ireland Ltd.), die beim Laden Cookies setzen können. Mit Klick auf "Akzeptieren" stimmst du dem zu. Weitere Infos in der <a href="datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-decline" onclick="declineCookies()">Ablehnen</button>
+    <button class="cookie-accept" onclick="acceptCookies()">Akzeptieren</button>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <a href="#hero" class="f-logo">FIELDING<span>.</span></a>
+  <ul class="f-links">
+    <li><a href="impressum.html" data-de="Impressum" data-en="Imprint">Impressum</a></li>
+    <li><a href="datenschutz.html" data-de="Datenschutz" data-en="Privacy">Datenschutz</a></li>
+  </ul>
+  <p class="f-copy">© <span id="year"></span> Damian Liam Fielding</p>
+</footer>
+
+<script>
+  /* ===== NAV SCROLL ===== */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* ===== MOBILE MENU ===== */
+  function toggleMenu() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileNav').classList.remove('open');
+  }
+
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mobileNav');
+    const btn = document.getElementById('menuBtn');
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  /* ===== LANGUAGE ===== */
+  let lang = 'de';
+
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.toLowerCase() === l);
+    });
+
+    document.querySelectorAll('[data-de]').forEach(el => {
+      const t = el.getAttribute('data-' + l);
+      if (t !== null) el.innerHTML = t;
+    });
+
+    // Textarea placeholders need attribute update
+    document.querySelectorAll('[data-placeholder-' + l + ']').forEach(el => {
+      el.placeholder = el.getAttribute('data-placeholder-' + l);
+    });
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 70);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ===== CONTACT FORM ===== */
+  const form    = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  const btn     = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const orig = btn.innerHTML;
+    btn.innerHTML = lang === 'de' ? 'Wird gesendet …' : 'Sending …';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'flex';
+        success.style.flexDirection = 'column';
+        success.style.alignItems = 'center';
+        setLang(lang); // re-apply translations to success message
+      } else {
+        btn.innerHTML = orig;
+        btn.disabled = false;
+        alert(lang === 'de'
+          ? 'Fehler beim Senden. Bitte schreib mir direkt per E-Mail.'
+          : 'Error sending. Please email me directly.');
+      }
+    } catch {
+      btn.innerHTML = orig;
+      btn.disabled = false;
+      alert(lang === 'de'
+        ? 'Netzwerkfehler. Bitte schreib mir direkt per E-Mail.'
+        : 'Network error. Please email me directly.');
+    }
+  });
+
+  /* ===== LIGHTBOX ===== */
+  function openLightbox(src, alt) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxImg').alt = alt;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Wire up gallery + mosaic click events
+  document.querySelectorAll('.gallery-item img, .gm-item img').forEach(img => {
+    img.parentElement.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+
+  /* ===== COOKIES ===== */
+  function loadYoutube() {
+    const iframe = document.getElementById('showreelIframe');
+    const consent = document.getElementById('ytConsent');
+    if (iframe && iframe.dataset.src) {
+      iframe.src = iframe.dataset.src;
+      iframe.style.display = '';
+      if (consent) consent.style.display = 'none';
+    }
+  }
+
+  function acceptCookies() {
+    localStorage.setItem('cookie-consent', 'accepted');
+    document.getElementById('cookieBanner').classList.add('hidden');
+    loadYoutube();
+  }
+
+  function declineCookies() {
+    localStorage.setItem('cookie-consent', 'declined');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+
+  (function initCookies() {
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent === 'accepted') {
+      document.getElementById('cookieBanner').classList.add('hidden');
+      loadYoutube();
+    } else if (consent === 'declined') {
+      document.getElementById('cookieBanner').classList.add('hidden');
+    }
+  })();
+
+  /* ===== YEAR ===== */
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
